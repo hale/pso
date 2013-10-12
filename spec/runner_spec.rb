@@ -3,10 +3,10 @@ require_relative 'spec_helper'
 module PSO
   describe Runner do
 
-    it "can be assigned a search space" do
-      search_space = FactoryGirl.build(:search_space, swarm_size: 20)
-      runner = FactoryGirl.build(:runner, search_space: search_space)
-      runner.search_space.should eq(search_space)
+    it "can be assigned particles" do
+      particle = FactoryGirl.build(:particle, position: [20.0, 3.0])
+      runner = FactoryGirl.build(:runner, particles: [particle])
+      runner.particles.should eq([particle])
     end
 
     describe "stepping through the simulation" do
@@ -15,9 +15,10 @@ module PSO
         expect { runner.next_step }.to change{ runner.step }.by(1)
       end
 
-      xit "tells the particles to calculate the fitness of their current position" do
-        Particle.any_instance.should_receive(:update_local_fitness)
-        runner = FactoryGirl.build(:runner)
+      it "tells the particles to calculate the fitness of their current position" do
+        particle = double("particle")
+        particle.should_receive(:update_fitness)
+        runner = FactoryGirl.build(:runner, particles: [particle])
         runner.next_step
       end
     end

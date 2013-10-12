@@ -1,18 +1,17 @@
 module PSO
   class Runner
     attr_reader :step
-    attr_reader :search_space
-    attr_reader :best_position
+    attr_reader :particles
 
-    def initialize(search_space: search_space)
-      @step = 1
-      @search_space = search_space
+    def initialize(particles: particles)
+      @step = 0
+      @particles = particles
     end
 
     def next_step
       @step += 1
-      search_space.particles.each do |particle|
-        particle.update_local_fitness
+      particles.each do |particle|
+        particle.update_fitness
       end
     end
   end

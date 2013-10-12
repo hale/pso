@@ -8,16 +8,22 @@ FactoryGirl.define do
   end
 
   factory :search_space, class: PSO::SearchSpace do
-    swarm_size 10
     dimensions [[-1.0,1.0]]
     initialize_with { new(attributes) }
   end
 
   factory :runner, class: PSO::Runner do
-    search_space { build(:search_space) }
+    particles { [build(:particle)] }
     initialize_with { new(attributes) }
   end
 
   factory :fitness_function, class: PSO::FitnessFunction do
+  end
+
+  factory :constructor, class: PSO::Constructor do
+    fitness_function { build(:fitness_function) }
+    swarm_size 10
+    dimensions [[-2.0, 2.0], [0.0, 10.0]]
+    initialize_with { new(attributes) }
   end
 end
