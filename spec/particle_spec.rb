@@ -16,5 +16,10 @@ module PSO
     it "has a velocity" do
       FactoryGirl.build(:particle).velocity.should_not be_nil
     end
+
+    it "has a best position found so far" do
+      FactoryGirl.build(:particle).best_position.should_not be_nil
+    end
+
   end
 end

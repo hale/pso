@@ -1,8 +1,8 @@
 module PSO
   class SearchSpace
-    attr_accessor :swarm_size
-    attr_accessor :particles
-    attr_accessor :dimensions
+    attr_reader :swarm_size
+    attr_reader :particles
+    attr_reader :dimensions
 
     def initialize(swarm_size: swarm_size, dimensions: dimensions)
       @swarm_size = swarm_size
