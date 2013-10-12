@@ -2,8 +2,8 @@ require_relative 'spec_helper'
 
 module PSO
   describe FitnessFunction do
-    it "has a method to compute the fitness, returns nil by default" do
-      FitnessFunction.new.fitness(parameters: nil).should be_nil
+    it "has a method to compute the fitness, returns 0 by default" do
+      FitnessFunction.new.fitness(parameters: nil).should == 0.0
     end
   end
 

@@ -8,6 +8,7 @@ module PSO
     #
     # Returns a double representing the solution for this state.
     def fitness(parameters: parameters)
+      0.0
     end
   end
 
