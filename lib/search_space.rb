@@ -1,12 +1,12 @@
 module PSO
-  class Runner
+  class SearchSpace
     attr_accessor :swarm_size
     attr_accessor :particles
-    attr_accessor :search_space
+    attr_accessor :dimensions
 
-    def initialize(swarm_size: swarm_size, search_space: search_space)
+    def initialize(swarm_size: swarm_size, dimensions: dimensions)
       @swarm_size = swarm_size
-      @search_space = search_space
+      @dimensions = dimensions
       @particles = []
     end
 
@@ -20,7 +20,7 @@ module PSO
     private
 
     def random_position
-      search_space.each_with_object([]) do |dimension, position|
+      dimensions.each_with_object([]) do |dimension, position|
         position << Random.rand(dimension[0]..dimension[1])
       end
     end

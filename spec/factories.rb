@@ -6,8 +6,8 @@ FactoryGirl.define do
     velocity 0.0
   end
 
-  factory :runner, class: PSO::Runner do
+  factory :search_space, class: PSO::SearchSpace do
     swarm_size 10
-    search_space [[-1.0,1.0]]
+    dimensions [[-1.0,1.0]]
   end
 end
