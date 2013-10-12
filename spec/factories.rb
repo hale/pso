@@ -8,6 +8,6 @@ FactoryGirl.define do
 
   factory :runner, class: PSO::Runner do
     swarm_size 10
-    search_space [-1.0,1.0]
+    search_space [[-1.0,1.0]]
   end
 end

@@ -47,10 +47,15 @@ module PSO
         runner.particles.sample.position.should_not be_nil
       end
 
-      xit "assigns each particle a location in the search space" do
-        runner = FactoryGirl.build(:runner).setup
+      it "assigns each particle a location in the search space" do
+        search_space = [[0.0,5.0], [-11.3,0.4]]
+        runner = FactoryGirl.build(:runner, :search_space => search_space).setup
         position = runner.particles.sample.position
-        position.should be_bounded_by(runner.search_space)
+
+        position[0].should be > search_space[0][0]
+        position[0].should be < search_space[0][1]
+        position[1].should be > search_space[1][0]
+        position[1].should be < search_space[1][1]
       end
     end
   end
