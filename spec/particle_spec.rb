@@ -13,13 +13,31 @@ module PSO
       particle.position.should eq(position)
     end
 
-    it "has a velocity" do
-      FactoryGirl.build(:particle).velocity.should_not be_nil
+    it "has a fitness function" do
+      particle = FactoryGirl.build(:particle, fitness_function: ThreeXPlusOneFunction.new)
+      particle.fitness_function.class.should eq(ThreeXPlusOneFunction)
     end
 
-    it "has a best position found so far" do
-      FactoryGirl.build(:particle).best_position.should_not be_nil
+    describe "#setup" do
+      let(:particle) { FactoryGirl.build(:particle, fitness_function: ThreeXPlusOneFunction.new) }
+      before(:each) { particle.setup }
+
+      it "assigns current position to best position" do
+        particle.best_position.should eq(particle.position)
+      end
+
+      it "assigns a velocity" do
+        particle.velocity.should_not be_nil
+      end
     end
+
+    describe "#update_fitness" do
+      it "changes the fitness value" do
+        particle = FactoryGirl.build(:particle, fitness_function: ThreeXPlusOneFunction.new)
+        expect{ particle.update_fitness }.to change{ particle.fitness }
+      end
+    end
+
 
   end
 end

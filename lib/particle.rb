@@ -3,10 +3,21 @@ module PSO
     attr_reader :position
     attr_reader :velocity
     attr_reader :best_position
+    attr_reader :fitness
+    attr_reader :fitness_function
 
-    def initialize(position: position, velocity: velocity)
-      @position, @velocity = position, velocity
+    def initialize(position: position, fitness_function: fitness_function)
+      @position, @fitness_function = position, fitness_function
+    end
+
+    def update_fitness
+      @fitness = fitness_function.fitness(parameters: position)
+    end
+
+    def setup
       @best_position = position
+      @fitness = update_fitness
+      @velocity = 1.0
     end
   end
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 FactoryGirl.define do
   factory :particle, class: PSO::Particle do
     position [0.0]
-    velocity 0.0
+    fitness_function { build(:fitness_function) }
     initialize_with { new(attributes) }
   end
 
@@ -16,5 +16,8 @@ FactoryGirl.define do
   factory :runner, class: PSO::Runner do
     search_space { build(:search_space) }
     initialize_with { new(attributes) }
+  end
+
+  factory :fitness_function, class: PSO::FitnessFunction do
   end
 end

@@ -16,12 +16,9 @@ module PSO
       end
 
       xit "tells the particles to calculate the fitness of their current position" do
-        particle = double('particle')
-        particle.stub(fitness: 2)
-        search_space = double("search space")
-        search_space.stub(particle: particle)
-        runner = FactoryGirl.build(:runner, search_space: search_space)
-        expect { runner.next_step }.to change{ particle.fitness }
+        Particle.any_instance.should_receive(:update_local_fitness)
+        runner = FactoryGirl.build(:runner)
+        runner.next_step
       end
     end
 
