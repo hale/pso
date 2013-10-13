@@ -7,6 +7,7 @@ module PSO
     attr_reader :inertia_weight
     attr_reader :cognitive_weight
     attr_reader :social_weight
+    attr_reader :runner
 
     def initialize(fitness_function: fitness_function, swarm_size: swarm_size,
                    dimensions: dimensions, inertia_weight: inertia_weight,
@@ -19,6 +20,7 @@ module PSO
       @inertia_weight = inertia_weight
       @cognitive_weight = cognitive_weight
       @social_weight = social_weight
+      @runner = setup_runner
     end
 
     def setup_particles
@@ -27,6 +29,10 @@ module PSO
           particles << setup_particle
         end
       end
+    end
+
+    def setup_runner
+      Runner.new(particles: @particles, inertia_weight: @inertia_weight)
     end
 
     private

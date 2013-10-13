@@ -6,10 +6,12 @@ module PSO
     attr_reader :particles
     attr_reader :best_fitness
     attr_reader :best_position
+    attr_reader :inertia_weight
 
-    def initialize(particles: particles)
+    def initialize(particles: particles, inertia_weight: inertia_weight)
       @step = 0
       @particles = particles
+      @inertia_weight = inertia_weight
     end
 
     def next_step

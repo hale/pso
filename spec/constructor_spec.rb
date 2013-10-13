@@ -55,5 +55,18 @@ module PSO
       end
     end
 
+    describe "#setup_runner" do
+      let (:constructor) { FactoryGirl.build(:constructor) }
+
+      it "assigns particles" do
+        constructor.setup_runner
+        constructor.runner.particles.count.should be > 0
+      end
+
+      it "assigns the inertia weight" do
+        constructor.setup_runner
+        constructor.runner.inertia_weight.should_not be_nil
+      end
+    end
   end
 end
