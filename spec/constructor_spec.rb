@@ -20,9 +20,13 @@ module PSO
     end
 
     it "has an inertia weight" do
-      weight = 0.7
-      constructor = FactoryGirl.build(:constructor, weight: weight)
-      constructor.weight.should eq(weight)
+      constructor = FactoryGirl.build(:constructor, inertia_weight: 0.7)
+      constructor.inertia_weight.should eq(0.7)
+    end
+
+    it "has a cognitive weight (c1)" do
+      constructor = FactoryGirl.build(:constructor, cognitive_weight: 1.4)
+      constructor.cognitive_weight.should eq(1.4)
     end
 
     describe "#setup_particles" do
