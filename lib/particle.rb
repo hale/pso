@@ -1,6 +1,6 @@
 module PSO
   class Particle
-    attr_reader :position
+    attr_accessor :position
     attr_reader :fitness
     attr_reader :fitness_function
     attr_accessor :velocity
@@ -8,7 +8,7 @@ module PSO
 
     def initialize(position: position, fitness_function: fitness_function)
       @position, @fitness_function = position, fitness_function
-      @velocity = [0.0]
+      @velocity = Array.new(position.count) { 0.0 }
       @best_position = position
     end
 

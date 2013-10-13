@@ -30,7 +30,7 @@ module PSO
     def setup_particles
       [].tap do |particles|
         @swarm_size.times do
-          particles << Particle.new(position: search_space.random_position,
+          particles << Particle.new(position: @search_space.random_position,
                                     fitness_function: @fitness_function)
         end
       end
@@ -40,7 +40,7 @@ module PSO
       Runner.new(particles: @particles, inertia_weight: @inertia_weight,
                  cognitive_weight: @cognitive_weight, social_weight:
                  @social_weight, min_velocity: @min_velocity, max_velocity:
-                 @max_velocity)
+                 @max_velocity, search_space: @search_space)
     end
   end
 end

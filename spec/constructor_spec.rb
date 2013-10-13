@@ -27,10 +27,9 @@ module PSO
         constructor.particles.sample.fitness_function.should_not be_nil
       end
 
-      it "assigns each particle a location in the search space" do
-        constructor.search_space.should_receive(:random_position)
-          .exactly(constructor.swarm_size).times
+      it "assigns each particle a position in the search space" do
         constructor.setup_particles
+        constructor.particles.sample.position.should_not be_nil
       end
     end
 
@@ -71,6 +70,12 @@ module PSO
                                         max_velocity: [0.3])
         constructor.setup_runner
         constructor.runner.max_velocity.should eq([0.3])
+      end
+
+      it "assigns a SearchSpace" do
+        constructor = FactoryGirl.build(:constructor, dimensions: [[0.1,3.2]])
+        constructor.setup_runner
+        constructor.runner.search_space.dimensions.should eq([[0.1,3.2]])
       end
 
     end

@@ -11,5 +11,13 @@ module PSO
         position << Random.rand(dimension[0]..dimension[1])
       end
     end
+
+    def upper_bounds
+      @dimensions.collect(&:last)
+    end
+
+    def lower_bounds
+      @dimensions.collect(&:first)
+    end
   end
 end

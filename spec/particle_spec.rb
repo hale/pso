@@ -18,6 +18,12 @@ module PSO
       particle.fitness_function.class.should eq(ThreeXPlusOneFunction)
     end
 
+    it "has a velocity with the same dimensions as the position" do
+      position = [1, 2, 3]
+      particle = FactoryGirl.build(:particle, position: position)
+      particle.velocity.should eq([0.0, 0.0, 0.0])
+    end
+
     describe "#update_fitness" do
       it "changes the fitness value" do
         particle = FactoryGirl.build(:particle, fitness_function: ThreeXPlusOneFunction.new)

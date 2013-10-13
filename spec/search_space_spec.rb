@@ -27,6 +27,17 @@ module PSO
       end
     end
 
+    it "can give the upper bounds" do
+      dimensions = [[0,1], [2,3]]
+      search_space = FactoryGirl.build(:search_space, dimensions: dimensions)
+      search_space.upper_bounds.should eq([1,3])
+    end
+
+    it "can give the lower bounds" do
+      dimensions = [[0,1], [2,3]]
+      search_space = FactoryGirl.build(:search_space, dimensions: dimensions)
+      search_space.lower_bounds.should eq([0,2])
+    end
 
   end
 end

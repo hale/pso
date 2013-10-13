@@ -10,29 +10,31 @@ module PSO
     end
 
     describe "stepping through the simulation" do
+
+      let(:runner) { FactoryGirl.build(:constructor).runner }
+
       it "increments the step counter" do
-        runner = FactoryGirl.build(:runner)
         expect { runner.next_step }.to change{ runner.step }.by(1)
       end
 
       it "tells the particles to calculate the fitness of their current position" do
-        runner = FactoryGirl.build(:runner)
         expect { runner.next_step }.to change{ runner.particles.sample.fitness }
       end
 
       it "updates the best fitness with the best particle fitness" do
-        runner = FactoryGirl.build(:runner)
         expect{ runner.next_step }.to change{ runner.best_fitness }
       end
 
       it "updates the best position with the best particle position" do
-        runner = FactoryGirl.build(:runner)
         expect{ runner.next_step }.to change{ runner.best_position }
       end
 
-      it "tells the particles to update their velocity" do
-        runner = FactoryGirl.build(:runner)
+      it "updates each particle with a new velocity" do
         expect { runner.next_step }.to change{ runner.particles.sample.velocity }
+      end
+
+      it "updates each particle with a new position" do
+        expect { runner.next_step }.to change{ runner.particles.sample.position }
       end
     end
   end
