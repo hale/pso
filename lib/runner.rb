@@ -7,11 +7,17 @@ module PSO
     attr_reader :best_fitness
     attr_reader :best_position
     attr_reader :inertia_weight
+    attr_reader :cognitive_weight
+    attr_reader :social_weight
 
-    def initialize(particles: particles, inertia_weight: inertia_weight)
+    def initialize(particles: particles, inertia_weight: inertia_weight,
+                   cognitive_weight: cognitive_weight, social_weight:
+                   social_weight)
       @step = 0
       @particles = particles
       @inertia_weight = inertia_weight
+      @cognitive_weight = cognitive_weight
+      @social_weight = social_weight
     end
 
     def next_step

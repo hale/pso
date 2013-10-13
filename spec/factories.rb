@@ -15,6 +15,8 @@ FactoryGirl.define do
   factory :runner, class: PSO::Runner do
     particles { [build(:particle)] }
     inertia_weight 1.0
+    cognitive_weight 1.0
+    social_weight 1.0
     initialize_with { new(attributes) }
   end
 

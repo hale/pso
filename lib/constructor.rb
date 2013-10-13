@@ -32,7 +32,9 @@ module PSO
     end
 
     def setup_runner
-      Runner.new(particles: @particles, inertia_weight: @inertia_weight)
+      Runner.new(particles: @particles, inertia_weight: @inertia_weight,
+                 cognitive_weight: @cognitive_weight, social_weight:
+                 @social_weight)
     end
 
     private

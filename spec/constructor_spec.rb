@@ -67,6 +67,17 @@ module PSO
         constructor.setup_runner
         constructor.runner.inertia_weight.should_not be_nil
       end
+
+      it "assigns the cognitive weight" do
+        constructor.setup_runner
+        constructor.runner.cognitive_weight.should_not be_nil
+      end
+
+      it "assigns the social weight" do
+        constructor.setup_runner
+        constructor.runner.social_weight.should_not be_nil
+      end
+
     end
   end
 end
