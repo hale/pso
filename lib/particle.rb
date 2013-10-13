@@ -8,7 +8,7 @@ module PSO
 
     def initialize(position: position, fitness_function: fitness_function)
       @position, @fitness_function = position, fitness_function
-      @velocity = []
+      @velocity = [0.0]
       @best_position = position
     end
 

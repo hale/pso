@@ -1,5 +1,7 @@
 module PSO
   class Runner
+    require 'matrix'
+
     attr_reader :step
     attr_reader :particles
     attr_reader :best_fitness
@@ -21,16 +23,15 @@ module PSO
     private
 
     def update_velocity(particles)
-      c1, c2, r1, r2, w, best_position, max_velocity, min_velocity = 0, 0, 0, 0, 0, [0], 0, 0
+      c1, c2, r1, r2, w = 1,1,1,1,1
+      best_position, max_velocity, min_velocity = [1], [1], [1]
       particles.each do |p|
-        new_velocity = p.velocity.collect { |v| v * w } \
-          + (p.best_position.map.with_index { |e,i| e - p.position[i] } )
-            .collect { |pos| pos * c1 * r1} \
-          + (best_position.map.with_index { |e,i| e - p.position[i] } )
-            .collect { |pos| pos * c2 * r2}
+        v_matrix = (w * Matrix[p.velocity]) \
+          + (c1 * r1 * (Matrix[p.best_position] - Matrix[p.position])) \
+          + (c2 * r2 * (Matrix[best_position] - Matrix[p.position]))
 
-        p.velocity = new_velocity.collect do |v|
-          [ [v, max_velocity].min, min_velocity ].max
+        p.velocity = v_matrix.to_a.flatten.collect.with_index do |v, i|
+          [ [v, max_velocity[i]].min, min_velocity[i] ].max
         end
       end
     end
