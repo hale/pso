@@ -24,10 +24,20 @@ module PSO
       particle.velocity.should eq([0.0, 0.0, 0.0])
     end
 
-    describe "#update_fitness" do
-      it "changes the fitness value" do
-        particle = FactoryGirl.build(:particle, fitness_function: ThreeXPlusOneFunction.new)
-        expect{ particle.update_fitness }.to change{ particle.fitness }
+    it "has an initial fitness value" do
+      particle = FactoryGirl.build(:particle, fitness_function:
+                                   ThreeXPlusOneFunction.new, position: [4])
+      particle.fitness.should eq(13)
+    end
+
+    describe "#position=" do
+      it "updates best_position if position > best_position" do
+        particle = FactoryGirl.build(:particle, position: [[1.0]])
+        particle.position = [2.0]
+        particle.best_position.should eq([2.0])
+      end
+
+      it "updates position" do
       end
     end
 

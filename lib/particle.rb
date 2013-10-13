@@ -10,10 +10,16 @@ module PSO
       @position, @fitness_function = position, fitness_function
       @velocity = Array.new(position.count) { 0.0 }
       @best_position = position
+      @fitness = fitness_function.fitness(parameters: position)
     end
 
     def update_fitness
       @fitness = fitness_function.fitness(parameters: position)
     end
+
+    def position=(new_position)
+      #@best_position = new_position if 
+    end
+
   end
 end
