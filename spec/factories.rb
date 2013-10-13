@@ -17,6 +17,8 @@ FactoryGirl.define do
     inertia_weight 1.0
     cognitive_weight 1.0
     social_weight 1.0
+    min_velocity [0.1]
+    max_velocity [0.2]
     initialize_with { new(attributes) }
   end
 
@@ -30,6 +32,8 @@ FactoryGirl.define do
     inertia_weight 1.0
     cognitive_weight 1.0
     social_weight 1.0
+    min_velocity [0.1, 0.2]
+    max_velocity [0.2, 0.4]
     initialize_with { new(attributes) }
   end
 end

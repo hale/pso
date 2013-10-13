@@ -34,8 +34,6 @@ module PSO
         runner = FactoryGirl.build(:runner)
         expect { runner.next_step }.to change{ runner.particles.sample.velocity }
       end
-
     end
-
   end
 end
