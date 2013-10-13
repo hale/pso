@@ -6,16 +6,19 @@ module PSO
     attr_reader :particles
     attr_reader :inertia_weight
     attr_reader :cognitive_weight
+    attr_reader :social_weight
 
     def initialize(fitness_function: fitness_function, swarm_size: swarm_size,
                    dimensions: dimensions, inertia_weight: inertia_weight,
-                   cognitive_weight: cognitive_weight)
+                   cognitive_weight: cognitive_weight, social_weight:
+                   social_weight)
       @fitness_function = fitness_function
       @swarm_size = swarm_size
       @search_space = SearchSpace.new(dimensions: dimensions)
       @particles = setup_particles
       @inertia_weight = inertia_weight
       @cognitive_weight = cognitive_weight
+      @social_weight = social_weight
     end
 
     def setup_particles

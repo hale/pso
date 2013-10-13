@@ -26,6 +26,7 @@ FactoryGirl.define do
     dimensions [[-2.0, 2.0], [0.0, 10.0]]
     inertia_weight 1.0
     cognitive_weight 1.0
+    social_weight 1.0
     initialize_with { new(attributes) }
   end
 end
