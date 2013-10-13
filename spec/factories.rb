@@ -24,6 +24,7 @@ FactoryGirl.define do
     fitness_function { build(:fitness_function) }
     swarm_size 10
     dimensions [[-2.0, 2.0], [0.0, 10.0]]
+    weight 1.0
     initialize_with { new(attributes) }
   end
 end

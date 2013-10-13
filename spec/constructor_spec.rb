@@ -19,6 +19,12 @@ module PSO
       constructor.search_space.dimensions.should eq(dimensions)
     end
 
+    it "has an inertia weight" do
+      weight = 0.7
+      constructor = FactoryGirl.build(:constructor, weight: weight)
+      constructor.weight.should eq(weight)
+    end
+
     describe "#setup_particles" do
       let (:constructor) { FactoryGirl.build(:constructor) }
 
