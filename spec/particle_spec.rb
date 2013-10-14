@@ -14,8 +14,8 @@ module PSO
     end
 
     it "has a fitness function" do
-      particle = FactoryGirl.build(:particle, fitness_function: ThreeXPlusOneFunction.new)
-      particle.fitness_function.class.should eq(ThreeXPlusOneFunction)
+      particle = FactoryGirl.build(:particle, fitness_function: XSquaredFunction.new)
+      particle.fitness_function.class.should eq(XSquaredFunction)
     end
 
     it "has a velocity with the same dimensions as the position" do
@@ -26,18 +26,30 @@ module PSO
 
     it "has an initial fitness value" do
       particle = FactoryGirl.build(:particle, fitness_function:
-                                   ThreeXPlusOneFunction.new, position: [4])
-      particle.fitness.should eq(13)
+                                   XSquaredFunction.new, position: [4])
+      particle.fitness.should eq(16)
     end
 
-    describe "#position=" do
-      it "updates best_position if position > best_position" do
-        particle = FactoryGirl.build(:particle, position: [[1.0]])
-        particle.position = [2.0]
-        particle.best_position.should eq([2.0])
+    describe "#update_fitness" do
+      it "updates the fitness by the current position" do
+        particle = FactoryGirl.build(:particle, fitness_function:
+                                     XSquaredFunction.new, position: [0.1])
+        particle.position = [0.2]
+        expect { particle.update_fitness }.to change{ particle.fitness }
       end
 
-      it "updates position" do
+      it "sets best_fitness to fitness if fitness < best_fitness" do
+        particle = FactoryGirl.build(:particle, fitness_function:
+                                     XSquaredFunction.new, position: [0.3])
+        particle.position = [0.1]
+        expect { particle.update_fitness }.to change{ particle.best_fitness }
+      end
+
+      it "sets best_position to current position if fitness < best_fitness" do
+        p = FactoryGirl.build(:particle, fitness_function:
+                                     XSquaredFunction.new, position: [1])
+        p.position = [0]
+        expect { p.update_fitness }.to change{ p.best_position }.to([0])
       end
     end
 
