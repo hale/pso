@@ -29,7 +29,7 @@ module PSO
     def next_step
       @step += 1
       @particles.each(&:update_fitness)
-      @best_fitness = @particles.max_by(&:fitness)
+      @best_fitness = @particles.max_by(&:best_fitness).best_fitness
       @best_position = @particles.max_by(&:best_position).best_position
       @particles.each { |p| p.velocity = update_velocity(particle: p) }
       @particles.each { |p| p.position = update_position(particle: p) }

@@ -18,11 +18,16 @@ module PSO
       end
 
       it "tells the particles to calculate the fitness of their current position" do
-        expect { runner.next_step }.to change{ runner.particles.sample.fitness }
+        p = runner.particles.sample
+        p.should_receive(:update_fitness)
+        runner.next_step
       end
 
       it "updates the best fitness with the best particle fitness" do
-        expect{ runner.next_step }.to change{ runner.best_fitness }
+        p = runner.particles.sample
+        p.should_receive(:best_fitness).at_least(:once).and_return(100)
+        runner.next_step
+        runner.best_fitness.should eq(100)
       end
 
       it "updates the best position with the best particle position" do
