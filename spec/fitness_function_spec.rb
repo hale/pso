@@ -7,7 +7,7 @@ module PSO
     end
 
     it "has a method to compare values of the function" do
-      FitnessFunction.new.better?(best: nil, candidate: nil).should == nil
+      FitnessFunction.new.better_fitness?(best: nil, candidate: nil).should == nil
     end
   end
 
@@ -17,8 +17,15 @@ module PSO
     end
 
     it "#better? minimises the function" do
-      XSquaredFunction.new.better?(best: 3, candidate: 1).should be_true
-      XSquaredFunction.new.better?(best: 2, candidate: 2).should be_false
+      XSquaredFunction.new.better_fitness?(best: 4, candidate: 3).should
+      be_true
+      XSquaredFunction.new.better_fitness?(best: 2, candidate: 2).should
+      be_false
+    end
+
+    it "#best gives the smallest in the list" do
+      results = [[12],[32],[2],[121]]
+      XSquaredFunction.new.best_result(results: results).should eq([2])
     end
   end
 end

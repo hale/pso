@@ -12,11 +12,13 @@ module PSO
     attr_reader :min_velocity
     attr_reader :max_velocity
     attr_reader :search_space
+    attr_reader :fitness_function
 
     def initialize(particles: particles, inertia_weight: inertia_weight,
                    cognitive_weight: cognitive_weight, social_weight:
                    social_weight, min_velocity: min_velocity, max_velocity:
-                   max_velocity, search_space: search_space)
+                   max_velocity, search_space: search_space, fitness_function:
+                   fitness_function)
       @step = 0
       @particles = particles
       @inertia_weight = inertia_weight
@@ -24,13 +26,14 @@ module PSO
       @social_weight = social_weight
       @min_velocity, @max_velocity = min_velocity, max_velocity
       @search_space = search_space
+      @fitness_function = fitness_function
     end
 
     def next_step
       @step += 1
       @particles.each(&:update_fitness)
-      @best_fitness = @particles.max_by(&:best_fitness).best_fitness
-      @best_position = @particles.max_by(&:best_position).best_position
+      @best_position = fitness_function.best_input(inputs: @particles.map(&:best_position))
+      @best_fitness = fitness_function.fitness(parameters: @best_position)
       @particles.each { |p| p.velocity = update_velocity(particle: p) }
       @particles.each { |p| p.position = update_position(particle: p) }
     end

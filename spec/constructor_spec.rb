@@ -78,6 +78,13 @@ module PSO
         constructor.runner.search_space.dimensions.should eq([[0.1,3.2]])
       end
 
+      it "assigns a FitnessFunction" do
+        func = XSquaredFunction.new
+        constructor = FactoryGirl.build(:constructor, fitness_function: func)
+        constructor.setup_runner
+        constructor.runner.fitness_function.should eq(func)
+      end
+
     end
   end
 end

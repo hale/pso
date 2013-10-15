@@ -19,8 +19,38 @@ module PSO
     #
     # Returns true if the candidate is better than the current best, false
     # otherwise.
-    def better?(best: best, candidate: candidate)
+    def better_fitness?(best: best, candidate: candidate)
     end
+
+    # Public: The best result given a list of fitness function results.
+    #
+    # results - return values from #fitness
+    #
+    # Returns the best value from the list.
+    def best_result(results: results)
+      best_so_far = results.sample
+      results.each do |result|
+        best_so_far = result if better_fitness?(best: best_so_far, candidate: result)
+      end
+      best_so_far
+    end
+
+    # Public: The best input given a list of inputs. I.e., the optimal solution
+    # from a list of solutions.
+    #
+    # inputs - parameters for #fitness
+    #
+    # Returns the best parameters from the list of input sequences.
+    def best_input(inputs: inputs)
+      best_so_far = inputs.sample
+      inputs.each do |input|
+        if better_fitness?(best: fitness(parameters: best_so_far), candidate: fitness(parameters: input))
+          best_so_far = input
+        end
+      end
+      best_so_far
+    end
+
   end
 
   class XSquaredFunction < FitnessFunction
@@ -28,8 +58,16 @@ module PSO
       parameters[0]**2
     end
 
-    def better?(best: best, candidate: candidate)
+    def better_fitness?(best: best, candidate: candidate)
       candidate < best
+    end
+
+    def best_result(results: results)
+      results.min
+    end
+
+    def best_input(inputs: inputs)
+      inputs.min{ |a,b| (0 - a).abs <=> (o - b).abs }
     end
   end
 end

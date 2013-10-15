@@ -17,7 +17,7 @@ module PSO
 
     def update_fitness
       @fitness = fitness_function.fitness(parameters: @position)
-      if fitness_function.better?(best: @best_fitness, candidate: @fitness)
+      if fitness_function.better_fitness?(best: @best_fitness, candidate: @fitness)
         @best_fitness = @fitness
         @best_position = @position
       end
