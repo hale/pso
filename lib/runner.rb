@@ -39,19 +39,15 @@ module PSO
 
     def update_velocity(particle: particle)
       p = particle
-      w = @inertia_weight
-      c1 = @cognitive_weight
-      c2 = @social_weight
+      w, c1, c2 = @inertia_weight, @cognitive_weight, @social_weight
       r1, r2= rand, rand
-      best_position = @best_position
-      max_v = @max_velocity
-      min_v = @min_velocity
+      max_v, min_v = @max_velocity, @min_velocity
 
-      v_matrix = (w * Matrix[p.velocity]) \
+      velocity_matrix = (w * Matrix[p.velocity]) \
         + (c1 * r1 * (Matrix[p.best_position] - Matrix[p.position])) \
-        + (c2 * r2 * (Matrix[best_position] - Matrix[p.position]))
+        + (c2 * r2 * (Matrix[@best_position] - Matrix[p.position]))
 
-      v_matrix.to_a.flatten.collect.with_index do |v, i|
+      velocity_matrix.to_a.flatten.collect.with_index do |v, i|
         [ [v, max_v[i]].min, min_v[i] ].max
       end
     end
@@ -61,6 +57,7 @@ module PSO
       lower_bounds = @search_space.lower_bounds
 
       position = Matrix[particle.position] + Matrix[particle.velocity]
+
       position.to_a.flatten.collect.with_index do |loc, i|
         [ [loc, upper_bounds[i]].min, lower_bounds[i] ].max
       end
